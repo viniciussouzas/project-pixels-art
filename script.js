@@ -1,12 +1,12 @@
 window.onload = () => {
   addColorToPalette();
-  //addRandomColor();
 }
 
 //Captura Elementos:
 const body = document.getElementById('body');
 const paletteSpaces = document.getElementsByClassName('color');
-const colorsOfPalette = ['black', 'red', 'green', 'blue'];
+const blackPaletteSpace = document.getElementsByClassName('color')[0];
+const colorsOfPalette = ['red', 'green', 'blue'];
 const buttonRandomColor = document.getElementById('button-random-color');
 
 //Resolve Requisitos:
@@ -16,9 +16,10 @@ const buttonRandomColor = document.getElementById('button-random-color');
 // - Requisito 2 e 3 - Parte feita no HTML de criação de Elementos
 
 const addColorToPalette = () => {
+  blackPaletteSpace.style.backgroundColor = 'black';
   for (let index = 1; index < paletteSpaces.length; index += 1) {
-    for (let index = 0; index < colorsOfPalette.length; index += 1) {
-      paletteSpaces[index].style.backgroundColor = colorsOfPalette[index];
+    for (let i = 0; i < colorsOfPalette.length; i += 1) {
+      paletteSpaces[index].style.backgroundColor = colorsOfPalette[i];
     }
   }
 }
