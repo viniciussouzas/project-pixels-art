@@ -1,38 +1,35 @@
 const body = document.getElementById('body');
+const paletteSpaces = document.getElementsByClassName('color');
+const colorsOfPalette = ['black', 'red', 'green', 'blue'];
 
-//Requisito 1
-
-const addTitle = () => {
-  const createHeader = document.createElement('header');
-  const createTitle = document.createElement('h1')
-  createTitle.id = 'title';
-  createTitle.innerHTML = 'Paleta de Cores';
-
-  createHeader.appendChild(createTitle);
-  body.appendChild(createHeader);
-}
+//Requisito 1 - Feito direto no HTML
 
 //Requisito 2
 
 const addPallete = () => {
   const createPallete = document.createElement('div');
   createPallete.id = 'color-palette';
-  createPallete.style.display = 'flex';
 
   for (let index = 1; index <= 4; index += 1) {
-    const palleteSpaces = document.createElement('div');
-    palleteSpaces.className = 'color';
-    palleteSpaces.style.border = '1px solid black';
-    palleteSpaces.style.width = '20px';
-    palleteSpaces.style.height = '20px';
-    palleteSpaces.style.margin = '2px';
+    const createPalleteSpaces = document.createElement('div');
+    createPalleteSpaces.className = 'color';
 
-    createPallete.appendChild(palleteSpaces);
+    createPallete.appendChild(createPalleteSpaces);
   }
   body.appendChild(createPallete);
 }
 
+const addColorToPalete = () => {
+  for (let index = 1; index < paletteSpaces.length; index += 1) {
+    for (let index = 0; index < colorsOfPalette.length; index += 1) {
+      paletteSpaces[index].style.backgroundColor = colorsOfPalette[index];
+    }
+  }
+}
+
+
+
 window.onload = () => {
-  addTitle();
   addPallete();
+  addColorToPalete();
 }
