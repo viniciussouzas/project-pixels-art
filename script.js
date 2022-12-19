@@ -1,5 +1,8 @@
 window.onload = () => {
   addColorToPalette();
+  if (localStorage.length > 0) {
+    restoreRandomColors();
+  }
 }
 
 //Captura Elementos:
@@ -26,14 +29,35 @@ const addColorToPalette = () => {
 
 //Requisito 4
 
+const storeColors = ['black'];
+
 const addRandomColor = () => {
+
   for (let index = 1; index < paletteSpaces.length; index += 1) {
     let r = Math.random() * 255;
     let g = Math.random() * 255;
     let b = Math.random() * 255;
 
     paletteSpaces[index].style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+    storeColors.push(paletteSpaces[index].style.backgroundColor);
   }
+
+  storeRandomColors();
 }
 
 buttonRandomColor.addEventListener('click', addRandomColor);
+
+//Requisito 5
+
+const storeRandomColors = () => {
+  localStorage.setItem('colorPalette', JSON.stringify(storeColors));
+};
+
+const restoreRandomColors = () => {
+  const restoreColors = JSON.parse(localStorage.getItem('colorPalette'));
+
+  for (let index = 0; index < restoreColors.length; index += 1) {
+    paletteSpaces[index].style.backgroundColor = restoreColors[index];
+  }
+}
