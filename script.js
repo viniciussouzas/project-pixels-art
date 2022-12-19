@@ -4,6 +4,7 @@ window.onload = () => {
     restoreRandomColors();
   }
   selectColor();
+  paintBoard();
 }
 
 //Captura Elementos:
@@ -14,6 +15,7 @@ const colorsOfPalette = ['red', 'green', 'blue'];
 const buttonRandomColor = document.getElementById('button-random-color');
 const pixelBoard = document.getElementById('pixel-board');
 const currentSelectedColor = document.getElementsByClassName('selected');
+const pixels = document.getElementsByClassName('pixel');
 
 //Resolve Requisitos:
 
@@ -84,11 +86,22 @@ for (let index = 0; index < 5; index += 1) {
 
 const selectColor = () => {
   for (let index = 0; index < paletteSpaces.length; index += 1) {
-    paletteSpaces[index].addEventListener('click', () => {
+    paletteSpaces[index].addEventListener('click', (event) => {
       currentSelectedColor[0].className = 'color';
-      paletteSpaces[index].className = 'color selected';
+      event.target.className = 'color selected';
     })
   }
 }
 
+
+
+//Requisito 10
+
+const paintBoard = () => {
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].addEventListener('click', (event) => {
+      event.target.style.backgroundColor = currentSelectedColor[0].style.backgroundColor;
+    })
+  }
+}
 
