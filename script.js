@@ -3,6 +3,7 @@ window.onload = () => {
   if (localStorage.length > 0) {
     restoreRandomColors();
   }
+  selectColor();
 }
 
 //Captura Elementos:
@@ -12,6 +13,7 @@ const blackPaletteSpace = document.getElementsByClassName('color')[0];
 const colorsOfPalette = ['red', 'green', 'blue'];
 const buttonRandomColor = document.getElementById('button-random-color');
 const pixelBoard = document.getElementById('pixel-board');
+const currentSelectedColor = document.getElementsByClassName('selected');
 
 //Resolve Requisitos:
 
@@ -76,5 +78,17 @@ for (let index = 0; index < 5; index += 1) {
     pixelBoard.appendChild(createWidthPixel);
   }
 
+//Requisito 8 - Feito no HTML
+
+//Requisito 9
+
+const selectColor = () => {
+  for (let index = 0; index < paletteSpaces.length; index += 1) {
+    paletteSpaces[index].addEventListener('click', () => {
+      currentSelectedColor[0].className = 'color';
+      paletteSpaces[index].className = 'color selected';
+    })
+  }
+}
 
 
