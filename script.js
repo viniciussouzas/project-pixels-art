@@ -11,6 +11,7 @@ const paletteSpaces = document.getElementsByClassName('color');
 const blackPaletteSpace = document.getElementsByClassName('color')[0];
 const colorsOfPalette = ['red', 'green', 'blue'];
 const buttonRandomColor = document.getElementById('button-random-color');
+const pixelBoard = document.getElementById('pixel-board');
 
 //Resolve Requisitos:
 
@@ -61,3 +62,19 @@ const restoreRandomColors = () => {
     paletteSpaces[index].style.backgroundColor = restoreColors[index];
   }
 }
+
+//Requisito 6 e 7 - Parte feita no HTML
+
+for (let index = 0; index < 5; index += 1) {
+  const createWidthPixel = document.createElement('div');
+  for (let index = 0; index < 5; index += 1) {
+    const createHeightPixel = document.createElement('div');
+    createHeightPixel.className = 'pixel';
+    createWidthPixel.appendChild(createHeightPixel);
+    }
+  
+    pixelBoard.appendChild(createWidthPixel);
+  }
+
+
+
