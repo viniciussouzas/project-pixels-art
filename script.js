@@ -1,7 +1,10 @@
 window.onload = () => {
   addColorToPalette();
-  if (localStorage.length > 0) {
+  if (localStorage.getItem('colorPalette')) {
     restoreRandomColors();
+  }
+  if (localStorage.getItem('pixelBoard')) {
+    restoreDrawing();
   }
   selectColor();
   paintBoard();
@@ -10,8 +13,7 @@ window.onload = () => {
 //Captura Elementos:
 const body = document.getElementById('body');
 const paletteSpaces = document.getElementsByClassName('color');
-const blackPaletteSpace = document.getElementsByClassName('color')[0];
-const colorsOfPalette = ['red', 'green', 'blue'];
+const colorsOfPalette = ['black','red', 'green', 'blue'];
 const buttonRandomColor = document.getElementById('button-random-color');
 const pixelBoard = document.getElementById('pixel-board');
 const currentSelectedColor = document.getElementsByClassName('selected');
@@ -24,13 +26,10 @@ const clearButton = document.getElementById('clear-board')
 // - Requisito 2 e 3 - Parte feita no HTML de criação de Elementos
 
 const addColorToPalette = () => {
-  blackPaletteSpace.style.backgroundColor = 'black';
-  for (let index = 1; index < paletteSpaces.length; index += 1) {
-    for (let i = 0; i < colorsOfPalette.length; i += 1) {
-      paletteSpaces[index].style.backgroundColor = colorsOfPalette[i];
+   for (let index = 0; index < paletteSpaces.length; index += 1) {
+      paletteSpaces[index].style.backgroundColor = colorsOfPalette[index];
     }
   }
-}
 
 //Requisito 4
 
@@ -86,9 +85,9 @@ for (let index = 0; index < 5; index += 1) {
 
 const selectColor = () => {
   for (let index = 0; index < paletteSpaces.length; index += 1) {
-    paletteSpaces[index].addEventListener('click', (event) => {
+    paletteSpaces[index].addEventListener('click', () => {
       currentSelectedColor[0].className = 'color';
-      event.target.className = 'color selected';
+      paletteSpaces[index].className = 'color selected';
     })
   }
 }
@@ -99,11 +98,13 @@ const selectColor = () => {
 
 const paintBoard = () => {
   for (let index = 0; index < pixels.length; index += 1) {
-    pixels[index].addEventListener('click', (event) => {
-      event.target.style.backgroundColor = currentSelectedColor[0].style.backgroundColor;
-    })
+    pixels[index].addEventListener('click', () => {
+      pixels[index].style.backgroundColor = currentSelectedColor[0].style.backgroundColor;
+      drawings.length = 0;
+      storeDrawing();
+    });
   }
-}
+};
 
 //Requisito 11 - feito parte no HTML
 
@@ -114,3 +115,25 @@ const clearBoard = () => {
 }
 
 clearButton.addEventListener('click', clearBoard);
+
+//Requisito 12
+
+const drawings = [];
+
+const storeDrawing = () => {
+  for (let index = 0; index < pixels.length; index += 1) {
+    const objects = {
+      backgroundColor: pixels[index].style.backgroundColor,
+      index: index,
+    }
+    drawings.push(objects);
+  }
+  localStorage.setItem('pixelBoard', JSON.stringify(drawings));
+};
+
+const restoreDrawing = () => {
+  for (let index = 0; index < pixels.length; index += 1) {
+    const restoreDrawings = JSON.parse(localStorage.getItem('pixelBoard'))[index];
+    pixels[index].style.backgroundColor = restoreDrawings.backgroundColor;
+  }
+}
