@@ -16,7 +16,7 @@ const buttonRandomColor = document.getElementById('button-random-color');
 const pixelBoard = document.getElementById('pixel-board');
 const currentSelectedColor = document.getElementsByClassName('selected');
 const pixels = document.getElementsByClassName('pixel');
-
+const clearButton = document.getElementById('clear-board')
 //Resolve Requisitos:
 
 // - Requisito 1 - Feito direto no HTML
@@ -105,3 +105,12 @@ const paintBoard = () => {
   }
 }
 
+//Requisito 11 - feito parte no HTML
+
+const clearBoard = () => {
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].style.backgroundColor = 'white';
+  }
+}
+
+clearButton.addEventListener('click', clearBoard);
